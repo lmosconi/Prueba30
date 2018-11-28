@@ -3,19 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package laboratoriofinal;
+package mx.com.gm.peliculas.excepciones;
 
 /**
  *
  * @author GMO
  */
-public class LaboratorioFinal {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+public class EscrituraDatosEx extends Exception{
+    
+    String mensaje;
+    
+    public EscrituraDatosEx (String Mensaje){
+        
+        this.mensaje=mensaje;
+    
     }
     
 }
