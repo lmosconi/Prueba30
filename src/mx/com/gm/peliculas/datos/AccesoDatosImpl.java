@@ -7,7 +7,6 @@ package mx.com.gm.peliculas.datos;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -111,59 +110,47 @@ public class AccesoDatosImpl implements AccesoDatos {
     @Override
     public List<Pelicula> listar(String nombreArchivo) throws LecturaDatosEx {
        
-        List<Pelicula> pelicula = new ArrayList();
+      File archivo = new File(nombreArchivo);
+      List<Pelicula> peliculas = new ArrayList();
         
-        File archivo = new File(nombreArchivo);
-        
-        BufferedReader entrada = null;
-        
-        if (archivo.exists()){
-          
         try {
-            entrada = new BufferedReader(new FileReader(archivo));
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(AccesoDatosImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-        String lectura = null;
-            try {
-                lectura = entrada.readLine();
-            } catch (IOException ex) {
-                Logger.getLogger(AccesoDatosImpl.class.getName()).log(Level.SEVERE, null, ex);
+            BufferedReader entrada = new BufferedReader(new FileReader(archivo));
+            String linea = null;
+            linea = entrada.readLine();
+            while (linea != null) {
+                Pelicula pelicula = new Pelicula(linea);
+                peliculas.add(pelicula);
+                linea = entrada.readLine();
             }
-        
-        while (lectura!=null){
-            
-            pelicula.add(new Pelicula(lectura));
-            
-            try {
-                entrada.readLine();
-            } catch (IOException ex) {
-                Logger.getLogger(AccesoDatosImpl.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
+            entrada.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
-
+        return peliculas;
     }
-        return pelicula;
-    }   
     
     public String buscar(String nombreArchivo, String buscar) throws LecturaDatosEx{
         
         File archivo = new File(nombreArchivo);
-        String busqueda = null;
-        
-        if (archivo.exists()){
-            
-            for (Pelicula contador: listar(nombreArchivo)){
-                
-                busqueda = contador.getNombre();
-                
+        String resultado = null;
+        try {
+            BufferedReader entrada = new BufferedReader(new FileReader(archivo));
+            String linea = null;
+            int i = 0;
+            linea = entrada.readLine();
+            while (linea != null) {
+                if (buscar != null && buscar.equalsIgnoreCase(linea)) {
+                    resultado = "Pelicula " + linea + " encontrada en indice " + i;
+                    break;
+                }
+                linea = entrada.readLine();
+                i++;
             }
-            
+            entrada.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
-       return busqueda; 
+        return resultado;
     }
     
 }

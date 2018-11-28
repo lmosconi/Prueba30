@@ -43,19 +43,19 @@ public class CatalogoPeliculasImpl implements CatalogoPeliculas {
     }
 
     @Override
-    public void buscarPelicula(String nombreArchivo, String nombrePelicula) {
+    public void buscarPelicula(String nombreArchivo, String buscar) {
         
         String busqueda = null;
         try {
-            busqueda = datos.buscar(nombreArchivo, nombrePelicula);
+            busqueda = datos.buscar(nombreArchivo, buscar);
         } catch (LecturaDatosEx ex) {
             Logger.getLogger(CatalogoPeliculasImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        if (busqueda.equals(nombrePelicula)){
+        if (busqueda.equals(buscar)){
             
             try {
-                System.out.println("La pelicula buscada se encuentra registrada: " + datos.buscar(nombreArchivo, nombrePelicula));
+                System.out.println(datos.buscar(nombreArchivo, buscar));
             } catch (LecturaDatosEx ex) {
                 Logger.getLogger(CatalogoPeliculasImpl.class.getName()).log(Level.SEVERE, null, ex);
             }

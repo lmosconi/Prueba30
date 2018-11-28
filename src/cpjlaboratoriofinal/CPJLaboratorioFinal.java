@@ -65,8 +65,8 @@ public class CPJLaboratorioFinal {
                 case 4:
 
                     System.out.println("Ingrese nombre de la pelicula: ");
-                    String busquedaPelicula = teclado.next();
-                    catalogoPeliculas.buscarPelicula( NOMBRE_ARCHIVO, busquedaPelicula);
+                    String buscar = teclado.next();
+                    catalogoPeliculas.buscarPelicula( NOMBRE_ARCHIVO, buscar);
                     System.out.println("Introduzca una Opción: ");
                     opcion = teclado.nextInt();
                     
